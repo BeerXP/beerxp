@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "399026205463",
+    "firebase_url": "https://beerxp-dev.firebaseio.com",
+    "project_id": "beerxp-dev",
+    "storage_bucket": "beerxp-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399026205463:android:56e1cb56c9a4ecaf3e3d52",
+        "android_client_info": {
+          "package_name": "com.beerxp.mobile.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399026205463-lrkvpq5lif24jor4c7aagasu5ui5k7jv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beerxp.mobile.android",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "399026205463-8ih3fomn41hg5vkjk31pfbeiocrc8sm7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRZPndfToJx0vac5AFv7w50uSOAmELQBk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399026205463-8ih3fomn41hg5vkjk31pfbeiocrc8sm7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "399026205463-i1o1pthtfj237qjsotqhkhph8h785l2b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.beerxp.mobile.ios"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
