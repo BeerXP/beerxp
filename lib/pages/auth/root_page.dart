@@ -1,6 +1,8 @@
+import 'package:beerxp/login/login_page.dart';
 import 'package:beerxp/pages/auth/home_page.dart';
 import 'package:beerxp/pages/auth/login.dart';
 import 'package:beerxp/services/authentication.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 enum AuthStatus {
@@ -25,6 +27,10 @@ class _RootPageState extends State<RootPage> {
   @override
   void initState() {
     super.initState();
+    
+    // Habilita uso offline
+    Firestore.instance.settings(persistenceEnabled: true);
+
     widget.auth.getCurrentUser().then((user) {
       setState(() {
         if (user != null) {
@@ -70,9 +76,9 @@ class _RootPageState extends State<RootPage> {
         return buildWaitingScreen();
         break;
       case AuthStatus.NOT_LOGGED_IN:
-        return new LoginSignupPage(
-          auth: widget.auth,
-          loginCallback: loginCallback,
+        return new LoginPage(
+            auth: widget.auth,
+            loginCallback: loginCallback,
         );
         break;
       case AuthStatus.LOGGED_IN:

@@ -2,7 +2,8 @@ import 'package:beerxp/pages/auth/root_page.dart';
 import 'package:beerxp/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
-void main(){
+
+void main(){  
   runApp(new MaterialApp(
     home: new MyApp(),
   ));

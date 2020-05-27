@@ -44,7 +44,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           userId = await widget.auth.signIn(_email, _password);
           print('Signed in: $userId');
         } else {
-          userId = await widget.auth.signUp(_email, _password);
+          userId = await widget.auth.signUp(_email, _password, "");
           //widget.auth.sendEmailVerification();
           //_showVerifyEmailSentDialog();
           print('Signed up user: $userId');
@@ -89,47 +89,27 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    return FlutterLogin(
-      title: '',
-      logo: 'assets/images/logo.png',
-      onLogin: (_) => Future(null),
-      onSignup: (_) => Future(null),
-      onSubmitAnimationCompleted: () {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => MyHomePage(),
+    return new Scaffold(
+        appBar: new AppBar(
+          title: new Text('Flutter login demo'),
+        ),
+        body: Stack(
+          children: <Widget>[
+            _showForm(),
+            _showCircularProgress(),
+          ],
         ));
-      },
-      onRecoverPassword: (_) => Future(null),
-      messages: LoginMessages(
-        usernameHint: 'Usuário',
-        passwordHint: 'Senha',
-        confirmPasswordHint: 'Confirmação',
-        loginButton: 'LOG IN',
-        signupButton: 'REGISTRO',
-        forgotPasswordButton: 'Esqueceu sua senha?',
-        goBackButton: 'VOLTAR',
-        confirmPasswordError: 'As senhas não combinam!',
-        recoverPasswordIntro: 'Recupere sua senha aqui',
-        recoverPasswordDescription:
-            'As instruções serão enviadas por e-mail',
-        recoverPasswordButton: 'AJUDA',
-        recoverPasswordSuccess: 'Password rescued successfully',
-      ),
-    );
   }
 
-/** REMOVE */
-
-  // Widget _showCircularProgress() {
-  //   if (_isLoading) {
-  //     return Center(child: CircularProgressIndicator());
-  //   }
-  //   return Container(
-  //     height: 0.0,
-  //     width: 0.0,
-  //   );
-  // }
-  /** REMOVE */
+  Widget _showCircularProgress() {
+    if (_isLoading) {
+      return Center(child: CircularProgressIndicator());
+    }
+    return Container(
+      height: 0.0,
+      width: 0.0,
+    );
+  }
 
 //  void _showVerifyEmailSentDialog() {
 //    showDialog(
