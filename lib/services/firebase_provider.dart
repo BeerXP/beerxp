@@ -222,38 +222,38 @@ Future<User> retrieveUserDetails(FirebaseUser user) async {
   Future<void> followUser({String currentUserId, String followingUserId}) async {
     var followingMap = Map<String, String>();
     followingMap['uid'] = followingUserId;
-    await _firestore
+    return _firestore
         .collection("Users")
         .document(currentUserId)
         .collection("following")
         .document(followingUserId)
         .setData(followingMap);
 
-    var followersMap = Map<String, String>();
-    followersMap['uid'] = currentUserId;
+    // var followersMap = Map<String, String>();
+    // followersMap['uid'] = currentUserId;
 
-    return _firestore
-        .collection("Users")
-        .document(followingUserId)
-        .collection("followers")
-        .document(currentUserId)
-        .setData(followersMap);
+    // return _firestore
+    //     .collection("Users")
+    //     .document(followingUserId)
+    //     .collection("followers")
+    //     .document(currentUserId)
+    //     .setData(followersMap);
   }
 
   Future<void> unFollowUser({String currentUserId, String followingUserId}) async {
-    await _firestore
+    return _firestore
         .collection("Users")
         .document(currentUserId)
         .collection("following")
         .document(followingUserId)
         .delete();
 
-    return _firestore
-        .collection("Users")
-        .document(followingUserId)
-        .collection("followers")
-        .document(currentUserId)
-        .delete();
+    // return _firestore
+    //     .collection("Users")
+    //     .document(followingUserId)
+    //     .collection("followers")
+    //     .document(currentUserId)
+    //     .delete();
   }
 
   Future<bool> checkIsFollowing(String displayName, String currentUserId) async {

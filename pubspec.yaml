@@ -23,11 +23,13 @@ environment:
 dependencies:
     splashscreen:
     font_awesome_flutter:
+    image:
     image_picker:
     location:
     geocoder:
     shared_preferences:
 
+    intl: ^0.16.1
     flutter:
         sdk: flutter
 

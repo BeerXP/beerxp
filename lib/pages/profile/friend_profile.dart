@@ -122,9 +122,9 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
     if (isFollowing) {
       return buildButton(
         text: "Unfollow",
-        backgroundcolor: Colors.white,
+        backgroundcolor: Colors.redAccent,
         textColor: Colors.black,
-        borderColor: Colors.grey,
+        borderColor: Colors.red,
         function: unfollowUser,
       );
     }

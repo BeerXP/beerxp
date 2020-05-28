@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
-import 'package:beerxp/pages/auth/home_page.dart';
 import 'package:beerxp/pages/profile/profile.dart';
 import 'package:beerxp/services/repository.dart';
 import 'package:image/image.dart' as Im;
@@ -103,8 +102,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 12.0),
                     child: Container(
-                        width: 110.0,
-                        height: 110.0,
+                        width: 200.0,
+                        height: 200.0,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(80.0),
                           image: DecorationImage(

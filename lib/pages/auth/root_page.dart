@@ -1,9 +1,9 @@
 import 'package:beerxp/login/login_page.dart';
 import 'package:beerxp/pages/auth/home_page.dart';
-import 'package:beerxp/pages/auth/login.dart';
 import 'package:beerxp/services/authentication.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 enum AuthStatus {
   NOT_DETERMINED,
@@ -30,6 +30,8 @@ class _RootPageState extends State<RootPage> {
     
     // Habilita uso offline
     Firestore.instance.settings(persistenceEnabled: true);
+
+    initializeDateFormatting();
 
     widget.auth.getCurrentUser().then((user) {
       setState(() {
