@@ -22,7 +22,7 @@ class User {
     data['followers'] = user.followers;
     data['following'] = user.following;
     data['bio'] = user.bio;
-    data['Drinkins'] = user.drinkins;
+    data['drinkins'] = user.drinkins;
     data['phone'] = user.phone;
     return data;
   }
@@ -35,7 +35,7 @@ class User {
     this.followers = mapData['followers'];
     this.following = mapData['following'];
     this.bio = mapData['bio'];
-    this.drinkins = mapData['Drinkins'];
+    this.drinkins = mapData['drinkins'];
     this.phone = mapData['phone']; 
   }
 }

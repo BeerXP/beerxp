@@ -26,10 +26,10 @@ class FirebaseProvider {
   StorageReference _storageReference;
 
   Future<void> addDataToDB(FirebaseUser currentUser) async {
-    _firestore
-        .collection("display_names")
-        .document(currentUser.displayName)
-        .setData({'displayName': currentUser.displayName});
+    // _firestore
+    //     .collection("display_names")
+    //     .document(currentUser.displayName)
+    //     .setData({'displayName': currentUser.displayName});
 
     user = User(
         uid: currentUser.uid,
@@ -91,10 +91,10 @@ class FirebaseProvider {
   //   return user;
   // }
 
-  Future<String> uploadImageToStorage(File imageFile) async {
+  Future<String> uploadProfileImageToStorage(String uid, File imageFile) async {
     _storageReference = FirebaseStorage.instance
         .ref()
-        .child('${DateTime.now().millisecondsSinceEpoch}');
+        .child('images/profiles/$uid');
     StorageUploadTask storageUploadTask = _storageReference.putFile(imageFile);
     var url = await (await storageUploadTask.onComplete).ref.getDownloadURL();
     return url;

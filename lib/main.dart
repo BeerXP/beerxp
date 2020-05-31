@@ -5,14 +5,13 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 
-FirebaseAnalytics analytics = FirebaseAnalytics();
+ FirebaseAnalytics analytics = FirebaseAnalytics();
+ FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
 
 void main(){  
   runApp(new MaterialApp(
     home: new MyApp(),
-    navigatorObservers: [
-    FirebaseAnalyticsObserver(analytics: analytics),
-  ],
+    navigatorObservers: <NavigatorObserver>[observer],
   ));
 }
 
@@ -22,11 +21,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  
   @override
   Widget build(BuildContext context) {
     return new SplashScreen(
       seconds: 3,
-      navigateAfterSeconds: new RootPage(auth: new Auth()),
+      navigateAfterSeconds: new RootPage(auth: new Auth(), analytics: analytics, observer: observer),
       imageBackground: new AssetImage('assets/images/splash.png'),
       loaderColor: Colors.deepOrange
     );

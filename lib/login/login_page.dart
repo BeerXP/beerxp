@@ -1,14 +1,19 @@
+import 'package:beerxp/main.dart';
 import 'package:beerxp/services/authentication.dart';
 import 'package:beerxp/style/theme.dart' as Theme;
 import 'package:beerxp/utils/bubble_indication_painter.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key key, this.auth, this.loginCallback})
+  LoginPage({Key key, this.auth, this.loginCallback, this.analytics, this.observer})
       : super(key: key);
 
+  final FirebaseAnalyticsObserver observer;
+  final FirebaseAnalytics analytics;
   final BaseAuth auth;
   final VoidCallback loginCallback;
 
@@ -156,6 +161,8 @@ class _LoginPageState extends State<LoginPage>
   @override
   void initState() {
     super.initState();
+
+    widget.analytics.setCurrentScreen(screenName: "Login");
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -685,12 +692,18 @@ class _LoginPageState extends State<LoginPage>
       try {
         if (_isLoginForm) {
           userId = await widget.auth.signIn(_email, _password);
-          print('Signed in: $userId');
+          // Registra no analytics um evento de login
+          analytics.logLogin();
+          analytics.setUserId(userId);
+          // print('Signed in: $userId');
         } else {
           userId = await widget.auth.signUp(_email, _password, _name);
+          // Registra no analytics um evento de novo registro do tipo e-mail
+          analytics.logSignUp(signUpMethod: "Email");
+          analytics.setUserId(userId);
           //widget.auth.sendEmailVerification();
           //_showVerifyEmailSentDialog();
-          print('Signed up user: $userId');
+          // print('Signed up user: $userId');
         }
         setState(() {
           _isLoading = false;

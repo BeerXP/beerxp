@@ -1,6 +1,7 @@
 import 'package:beerxp/models/comment.dart';
 import 'package:beerxp/models/users.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 
 class CommentsScreen extends StatefulWidget {
@@ -15,8 +16,16 @@ class CommentsScreen extends StatefulWidget {
 }
 
 class _CommentsScreenState extends State<CommentsScreen> {
+  FirebaseAnalytics analytics = FirebaseAnalytics();
+  
   TextEditingController _commentController = TextEditingController();
   var _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    analytics.setCurrentScreen(screenName: "Comments");
+  }
 
   @override
   void dispose() {

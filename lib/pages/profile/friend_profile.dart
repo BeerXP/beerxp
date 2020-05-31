@@ -8,6 +8,7 @@ import 'package:beerxp/pages/drinkin/likes.dart';
 import 'package:beerxp/services/repository.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -21,6 +22,8 @@ class FriendProfileScreen extends StatefulWidget {
 }
 
 class _FriendProfileScreenState extends State<FriendProfileScreen> {
+  FirebaseAnalytics analytics = FirebaseAnalytics();
+  
   String currentUserId, followingUserId;
   var _repository = Repository();
   Color _gridColor = Colors.blue;
@@ -58,6 +61,8 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
   @override
   void initState() {
     super.initState();
+    analytics.setCurrentScreen(screenName: "Friend Profile");
+
     _repository.getCurrentUser().then((user) {
       _repository.fetchUserDetailsById(user.uid).then((currentUser) {
         setState(() {

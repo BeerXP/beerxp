@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:beerxp/pages/profile/profile.dart';
 import 'package:beerxp/services/repository.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:image/image.dart' as Im;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   var _repository = Repository();
   FirebaseUser currentUser;
+  FirebaseAnalytics analytics = FirebaseAnalytics();
 
   final _nameController = TextEditingController();
   final _bioController = TextEditingController();
@@ -31,6 +33,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     super.initState();
+
+    analytics.setCurrentScreen(screenName: "Edit Profile");
     
     _nameController.text = widget.name;
     _bioController.text = widget.bio;
@@ -227,7 +231,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       imageFile = selectedImage;
                     });
                     compressImage();
-                    _repository.uploadImageToStorage(imageFile).then((url) {
+                    _repository.uploadProfileImageToStorage(currentUser.uid, imageFile).then((url) {
                       _repository.updatePhoto(url, currentUser.uid).then((v) {
                         Navigator.pop(context);
                       });
@@ -243,7 +247,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       imageFile = selectedImage;
                     });
                     compressImage();
-                    _repository.uploadImageToStorage(imageFile).then((url) {
+                    _repository.uploadProfileImageToStorage(currentUser.uid, imageFile).then((url) {
                       _repository.updatePhoto(url, currentUser.uid).then((v) {
                         Navigator.pop(context);
                       });

@@ -9,6 +9,7 @@ import 'package:beerxp/services/repository.dart';
 import 'package:beerxp/utils/dates.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -29,9 +30,12 @@ class _FeedScreenState extends State<FeedScreen> {
   bool _isLiked = false;
   List<String> followingUIDs = List<String>();
 
+  FirebaseAnalytics analytics = FirebaseAnalytics();
+
   @override
   void initState() {
     super.initState();
+    analytics.setCurrentScreen(screenName: "Feed");
     fetchFeed();
   }
 
@@ -115,9 +119,13 @@ class _FeedScreenState extends State<FeedScreen> {
             );
           }
         } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return ListView.builder(itemCount: 0, 
+                      itemBuilder: ((context, index) => listItem(
+                      list: snapshot.data,
+                      index: index,
+                      user: followingUser,
+                      currentUser: currentUser,
+                    )));
         }
       }),
     );

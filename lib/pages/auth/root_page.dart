@@ -1,7 +1,12 @@
 import 'package:beerxp/login/login_page.dart';
+import 'package:beerxp/main.dart';
 import 'package:beerxp/pages/auth/home_page.dart';
 import 'package:beerxp/services/authentication.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -12,7 +17,10 @@ enum AuthStatus {
 }
 
 class RootPage extends StatefulWidget {
-  RootPage({this.auth});
+  RootPage({this.auth, this.analytics, this.observer});
+
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
 
   final BaseAuth auth;
 
@@ -21,6 +29,9 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
+  FirebasePerformance _performance = FirebasePerformance.instance;
+  Crashlytics _crashlytics = Crashlytics.instance;
+
   AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
   String _userId = "";
 
@@ -30,6 +41,16 @@ class _RootPageState extends State<RootPage> {
     
     // Habilita uso offline
     Firestore.instance.settings(persistenceEnabled: true);
+
+    //Inicia o Ana;ytics informando abertura do APP
+    _initAnalytics();
+
+    //Inicia coleta de dados de performance
+    _initPerformance();
+
+    //Configura o Crashlytics
+    _initCrashlytics();
+
 
     initializeDateFormatting();
 
@@ -43,6 +64,20 @@ class _RootPageState extends State<RootPage> {
       });
     });
   }
+
+  void _initAnalytics() async {
+    widget.analytics.setAnalyticsCollectionEnabled(true);
+    widget.analytics.logAppOpen();
+  }
+
+  void _initPerformance() async {
+    _performance.setPerformanceCollectionEnabled(true);
+  }
+
+  void _initCrashlytics() async {
+    _crashlytics.enableInDevMode = true;
+  }
+
 
   void loginCallback() {
     widget.auth.getCurrentUser().then((user) {
@@ -81,14 +116,19 @@ class _RootPageState extends State<RootPage> {
         return new LoginPage(
             auth: widget.auth,
             loginCallback: loginCallback,
+            analytics: analytics,
+            observer: observer,
         );
         break;
       case AuthStatus.LOGGED_IN:
         if (_userId.length > 0 && _userId != null) {
+          analytics.setUserId(_userId);
           return new HomePage(
             userId: _userId,
             auth: widget.auth,
             logoutCallback: logoutCallback,
+            analytics: widget.analytics,
+            observer: widget.observer,
           );
         } else
           return buildWaitingScreen();

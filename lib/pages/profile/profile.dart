@@ -8,19 +8,21 @@ import 'package:beerxp/pages/drinkin/likes.dart';
 import 'package:beerxp/pages/profile/edit_profile.dart';
 import 'package:beerxp/services/repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class ProfileScreen extends StatefulWidget {
-  // InstaProfileScreen();
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  FirebaseAnalytics analytics = FirebaseAnalytics();
+  
   var _repository = Repository();
   Color _gridColor = Colors.blue;
   Color _listColor = Colors.grey;
@@ -34,6 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
+    analytics.setCurrentScreen(screenName: "Profile");
     retrieveUserDetails();
     icon = FontAwesomeIcons.heart;
   }

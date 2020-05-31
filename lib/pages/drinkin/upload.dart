@@ -69,7 +69,7 @@ class _UploadPhotoScreenState extends State<UploadPhotoScreen> {
                     compressImage();
                     _repository.retrieveUserDetails(currentUser).then((user) {
                       _repository
-                        .uploadImageToStorage(widget.imageFile)
+                        .uploadProfileImageToStorage(currentUser.uid, widget.imageFile)
                         .then((url) {
                       _repository
                           .addDrinkinToDB(user, url,

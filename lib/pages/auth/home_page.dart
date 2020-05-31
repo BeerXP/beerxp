@@ -4,27 +4,34 @@ import 'package:beerxp/pages/feed/feed.dart';
 import 'package:beerxp/pages/profile/profile.dart';
 import 'package:beerxp/pages/search/search.dart';
 import 'package:beerxp/services/authentication.dart';
+import 'package:beerxp/utils/notification_handler.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.auth, this.userId, this.logoutCallback})
+  HomePage({Key key, this.auth, this.userId, this.logoutCallback, this.analytics, this.observer})
       : super(key: key);
 
+  final FirebaseAnalyticsObserver observer;
+  final FirebaseAnalytics analytics;
   final BaseAuth auth;
   final VoidCallback logoutCallback;
   final String userId;
 
   @override
-  State<StatefulWidget> createState() => new _HomePageState();
+  State<StatefulWidget> createState() => new _HomePageState(observer);
 }
 
 PageController pageController;
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with RouteAware {
+  
+  _HomePageState(this.observer);
 
-  final FirebaseDatabase _database = FirebaseDatabase.instance;
+  final FirebaseAnalyticsObserver observer;
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   //bool _isEmailVerified = false;
@@ -46,11 +53,22 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     pageController = new PageController();
+
+    // widget.analytics.setCurrentScreen(screenName: "Home");
+
+    new FirebaseNotifications().setUpFirebase();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    observer.subscribe(this, ModalRoute.of(context));
   }
 
   @override
   void dispose() {
     super.dispose();
+    observer.unsubscribe(this);
     pageController.dispose();
   }
 
@@ -112,4 +130,21 @@ class _HomePageState extends State<HomePage> {
             ),
           );
   }
+
+  @override
+  void didPush() {
+    _sendCurrentTabToAnalytics();
+  }
+
+  @override
+  void didPopNext() {
+    _sendCurrentTabToAnalytics();
+  }
+
+  void _sendCurrentTabToAnalytics() {
+    // observer.analytics.setCurrentScreen(
+    //   screenName: 'Home/tab$pageController',
+    // );
+  }
+
 }

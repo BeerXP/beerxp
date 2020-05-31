@@ -4,6 +4,7 @@ import 'package:beerxp/pages/profile/friend_profile.dart';
 import 'package:beerxp/services/repository.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -12,6 +13,8 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  FirebaseAnalytics analytics = FirebaseAnalytics();
+  
   var _repository = Repository();
   List<DocumentSnapshot> list = List<DocumentSnapshot>();
   User _user = User();
@@ -21,6 +24,9 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
+
+    analytics.setCurrentScreen(screenName: "Search");
+
     _repository.getCurrentUser().then((user) {
       _user.uid = user.uid;
       _user.displayName = user.displayName;
