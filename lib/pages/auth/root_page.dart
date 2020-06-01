@@ -30,7 +30,6 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   FirebasePerformance _performance = FirebasePerformance.instance;
-  Crashlytics _crashlytics = Crashlytics.instance;
 
   AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
   String _userId = "";
@@ -48,10 +47,6 @@ class _RootPageState extends State<RootPage> {
     //Inicia coleta de dados de performance
     _initPerformance();
 
-    //Configura o Crashlytics
-    _initCrashlytics();
-
-
     initializeDateFormatting();
 
     widget.auth.getCurrentUser().then((user) {
@@ -62,6 +57,13 @@ class _RootPageState extends State<RootPage> {
         authStatus =
             user?.uid == null ? AuthStatus.NOT_LOGGED_IN : AuthStatus.LOGGED_IN;
       });
+      //Configura o Analytics para armazenar o userID
+      analytics.setUserId(user.uid);
+
+      // Configura o Crashlytics para registrar os erros com as infos do usuário
+      Crashlytics.instance.setUserEmail(user.email);
+      Crashlytics.instance.setUserName(user.displayName);
+      Crashlytics.instance.setUserIdentifier(user.uid);
     });
   }
 
@@ -73,11 +75,6 @@ class _RootPageState extends State<RootPage> {
   void _initPerformance() async {
     _performance.setPerformanceCollectionEnabled(true);
   }
-
-  void _initCrashlytics() async {
-    _crashlytics.enableInDevMode = true;
-  }
-
 
   void loginCallback() {
     widget.auth.getCurrentUser().then((user) {
@@ -122,7 +119,6 @@ class _RootPageState extends State<RootPage> {
         break;
       case AuthStatus.LOGGED_IN:
         if (_userId.length > 0 && _userId != null) {
-          analytics.setUserId(_userId);
           return new HomePage(
             userId: _userId,
             auth: widget.auth,

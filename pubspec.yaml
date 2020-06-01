@@ -34,14 +34,14 @@ dependencies:
         sdk: flutter
 
     # Firebase libs
-    firebase_core: ^0.4.4+3 # add dependency for Firebase Core
-    firebase_auth: ^0.16.0 # add dependency for Firebase Auth
-    firebase_analytics: ^5.0.11 # add dependency for Google Analytics for Firebase
-    firebase_database: ^3.1.5 # add dependency for Firebase Database
+    firebase_core: ^0.4.5 # add dependency for Firebase Core
+    firebase_auth: ^0.16.1 # add dependency for Firebase Auth
+    firebase_analytics: ^5.0.14 # add dependency for Google Analytics for Firebase
+    firebase_database: ^3.1.6 # add dependency for Firebase Database
     firebase_messaging: ^6.0.16 # add dependency for Firebase Messaging (Push Notifications)
-    firebase_storage: ^3.1.5 # add dependency for Firebase Storage
-    cloud_firestore: ^0.13.5 # add dependency for Firebase Firestore
-    firebase_performance: ^0.3.1+8 # add dependency for Firebase Performance
+    firebase_storage: ^3.1.6 # add dependency for Firebase Storage
+    cloud_firestore: ^0.13.6 # add dependency for Firebase Firestore
+    firebase_performance: ^0.3.2 # add dependency for Firebase Performance
     firebase_crashlytics: ^0.1.3+3 # add dependency for Firebase Crashlytics
 
     # The following adds the Cupertino Icons font to your application.

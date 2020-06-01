@@ -41,7 +41,6 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
   int followingCount = 0;
 
   fetchUidBySearchedName(String name) async {
-    print("NAME : $name");
     String uid = await _repository.fetchUidBySearchedName(name);
     setState(() {
       followingUserId = uid;
