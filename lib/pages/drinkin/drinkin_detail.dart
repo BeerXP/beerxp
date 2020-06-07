@@ -3,6 +3,7 @@ import 'package:beerxp/models/users.dart';
 import 'package:beerxp/pages/drinkin/comments.dart';
 import 'package:beerxp/pages/drinkin/likes.dart';
 import 'package:beerxp/services/repository.dart';
+import 'package:beerxp/utils/dates.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -218,7 +219,7 @@ class _DrinkinDetailScreenState extends State<DrinkinDetailScreen> {
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Text("1 Day Ago", style: TextStyle(color: Colors.grey)),
+              child: Text(DatesUtils.daysAgo(widget.documentSnapshot.data['time']), style: TextStyle(color: Colors.grey)),
             )
           ],
         ));
