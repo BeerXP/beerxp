@@ -14,7 +14,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-
 class FeedScreen extends StatefulWidget {
   @override
   _FeedScreenState createState() => _FeedScreenState();
@@ -389,7 +388,7 @@ class _FeedScreenState extends State<FeedScreen> {
         ownerName: currentUser.displayName,
         ownerPhotoUrl: currentUser.photoUrl,
         ownerUid: currentUser.uid,
-        timeStamp: FieldValue.serverTimestamp());
+        timestamp: FieldValue.serverTimestamp());
     reference
         .collection('Likes')
         .document(currentUser.uid)
@@ -630,7 +629,7 @@ class _ListItemState extends State<ListItem> {
                 : commentWidget(widget.list[widget.index].reference)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: Text("1 Day Ago", style: TextStyle(color: Colors.grey)),
+          child: Text(DatesUtils.daysAgo(widget.list[widget.index].data['time']), style: TextStyle(color: Colors.grey)),
         )
       ],
     );
@@ -668,7 +667,7 @@ class _ListItemState extends State<ListItem> {
         ownerName: widget.currentUser.displayName,
         ownerPhotoUrl: widget.currentUser.photoUrl,
         ownerUid: widget.currentUser.uid,
-        timeStamp: FieldValue.serverTimestamp());
+        timestamp: FieldValue.serverTimestamp());
     reference
         .collection('Likes')
         .document(widget.currentUser.uid)

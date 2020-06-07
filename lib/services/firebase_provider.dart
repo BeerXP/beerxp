@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:beerxp/models/comment.dart';
 import 'package:beerxp/models/drinkin.dart';
 import 'package:beerxp/models/like.dart';
-import 'package:beerxp/models/message.dart';
 import 'package:beerxp/models/users.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,7 +17,6 @@ class FirebaseProvider {
   User user;
   Drinkin drinkin;
   Like like;
-  Message _message;
   Comment comment;
   
   // final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -431,6 +429,16 @@ Future<User> retrieveUserDetails(FirebaseUser user) async {
     }
    
     return list;
+  }
+
+  Future<List<DocumentSnapshot>> fetchActivities(FirebaseUser user) async {
+    QuerySnapshot querySnapshot = await _firestore
+        .collection("Users")
+        .document(user.uid)
+        .collection("Activities")
+        .orderBy("timestamp", descending: true)
+        .getDocuments();
+    return querySnapshot.documents;
   }
 
    Future<List<String>> fetchFollowingUids(FirebaseUser user) async{

@@ -3,6 +3,10 @@ import 'package:intl/intl.dart';
 
 class DatesUtils {
 
+  static String timestampToFormat(Timestamp time) {    
+    return new DateFormat.yMd('pt_BR').add_jm().format(time.toDate());
+  }
+
   static String daysAgo(Timestamp time) {
     var diff = DateTime.now().difference(time.toDate());
 

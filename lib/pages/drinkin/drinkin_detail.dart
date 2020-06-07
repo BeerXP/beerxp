@@ -256,7 +256,7 @@ class _DrinkinDetailScreenState extends State<DrinkinDetailScreen> {
         ownerName: widget.currentuser.displayName,
         ownerPhotoUrl: widget.currentuser.photoUrl,
         ownerUid: widget.currentuser.uid,
-        timeStamp: FieldValue.serverTimestamp());
+        timestamp: FieldValue.serverTimestamp());
     reference
         .collection('Likes')
         .document(widget.currentuser.uid)

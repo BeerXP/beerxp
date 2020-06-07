@@ -412,7 +412,7 @@ class _ListItemState extends State<ListItem> {
   void initState() {
     super.initState();
     print("INDEX : ${widget.index}");
-    _future =_repository.fetchDrinkinLikes(widget.list[widget.index].reference);
+    _future = _repository.fetchDrinkinLikes(widget.list[widget.index].reference);
   }
 
   @override
@@ -608,7 +608,7 @@ class _ListItemState extends State<ListItem> {
         ownerName: widget.user.displayName,
         ownerPhotoUrl: widget.user.photoUrl,
         ownerUid: widget.user.uid,
-        timeStamp: FieldValue.serverTimestamp());
+        timestamp: FieldValue.serverTimestamp());
     reference
         .collection('Likes')
         .document(widget.user.uid)

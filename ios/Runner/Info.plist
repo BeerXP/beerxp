@@ -30,6 +30,8 @@
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string></string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

@@ -33,7 +33,7 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
   IconData icon;
   Color color;
   Future<List<DocumentSnapshot>> _future;
-  bool _isLiked = false;
+  // bool _isLiked = false;
   bool isFollowing = false;
   bool followButtonClicked = false;
   int drinkinsCount = 0;
@@ -670,7 +670,7 @@ class _ListItemState extends State<ListItem> {
         ownerName: widget.currentuser.displayName,
         ownerPhotoUrl: widget.currentuser.photoUrl,
         ownerUid: widget.currentuser.uid,
-        timeStamp: FieldValue.serverTimestamp());
+        timestamp: FieldValue.serverTimestamp());
     reference
         .collection('Likes')
         .document(widget.currentuser.uid)

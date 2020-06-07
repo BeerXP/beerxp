@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> with RouteAware {
                 ),
                 new Container(
                     color: Colors.orange, 
-                    child: ActivityScreen()
+                    child: ActivitiesScreen()
                     ),
                 new Container(
                     color: Colors.orange,

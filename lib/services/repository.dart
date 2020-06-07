@@ -66,4 +66,6 @@ class Repository {
 
   Future<List<String>> fetchFollowingUids(FirebaseUser user) => _firebaseProvider.fetchFollowingUids(user);
 
+  Future<List<DocumentSnapshot>> fetchActivities(FirebaseUser user) => _firebaseProvider.fetchActivities(user);
+
 }
